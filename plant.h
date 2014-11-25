@@ -2,18 +2,17 @@
 #define PLANT_H
 
 #include <QGraphicsItem>
-#include "entity.h"
 
-class Plant:public Entity
-{
+class Plant: public QGraphicsItem{
 public:
     Plant();
-    virtual void shoot()=0;
+    virtual void shoot();
     void die();
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
+    QRectF boundingRect()const;
 
 private:
-    int health;
-    int damage;
+    int health,damage,x,y;
     float attackSpeed;
 };
 
