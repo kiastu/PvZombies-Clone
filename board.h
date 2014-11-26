@@ -6,10 +6,9 @@
 #include <iostream>
 #include <QGraphicsScene>
 
-class Board {
+class Board :public QGraphicsScene{
 public:
-    Board(QGraphicsScene* newGrid);
-    Board(QGraphicsScene* newGrid, int rows);
+    Board(const QRectF & sceneRect, QObject * parent = 0,int rows=5);
     void setRows(int rows);
     Plant& getPlant(int row, int column);
     void setPlant(int row, int column, Plant *newPlant);
@@ -27,7 +26,6 @@ private:
     int rows;//size of the board
     Plant* plants[5][10];
     bool isOccupied[5][10];
-    QGraphicsScene* grid;
 };
 
 #endif // BOARD_H

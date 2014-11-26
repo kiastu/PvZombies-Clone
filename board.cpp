@@ -1,17 +1,6 @@
 #include "board.h"
 
-Board::Board(QGraphicsScene *newGrid){
-    //default is 5 rows.
-    this->rows = 5;
-    for(int i = 0;i<rows;i++){
-        for(int j=0; j<10;j++){
-            isOccupied[i][j] = false;
-        }
-    }
-    grid = newGrid;
-}
-
-Board::Board(QGraphicsScene *newGrid,int rows){
+Board::Board(const QRectF & sceneRect, QObject * parent,int rows):QGraphicsScene(sceneRect,parent){
     this->rows = rows;
     for(int i = 0;i<rows;i++){
         for(int j=0; j<10;j++){
@@ -41,7 +30,7 @@ void Board::setPlant(int row, int column, Plant *newPlant){
    // newPlant->setPosition(ORIGINX,ORIGINY);
     newPlant->setPosition(grid_x,grid_y);
 
-    this->grid->addItem(newPlant);
+    this->addItem(newPlant);
 
 
 }

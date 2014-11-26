@@ -16,13 +16,11 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     plant.cpp \
     board.cpp \
-    peashooter.cpp \
-    gamescene.cpp
+    peashooter.cpp
 
 HEADERS  += mainwindow.h \
     plant.h \
     board.h \
-    peashooter.h \
-    gamescene.h
+    peashooter.h
 
 FORMS    += mainwindow.ui

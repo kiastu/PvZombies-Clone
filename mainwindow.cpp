@@ -1,15 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "board.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    gs = new GameScene(QRectF(game->ORIGINX,game->ORIGINY,game->WIDTH,game->HEIGHT), this);
-    game  = new Board(gs);
-    ui->gameView->setScene(gs);
+    game = new Board(QRectF(game->ORIGINX,game->ORIGINY,game->WIDTH,game->HEIGHT), this,5);
+    ui->gameView->setScene(game);
     drawBoard();
 }
 
@@ -26,7 +24,7 @@ void MainWindow::drawBoard(){
         float p1y = game->ORIGINY + game->ROW*i;
         float p2x = game->WIDTH/2;
         float p2y = p1y;
-        gs->addLine(QLineF(p1x,p1y,p2x,p2y) ,my_pen);
+        game->addLine(QLineF(p1x,p1y,p2x,p2y) ,my_pen);
     }
     //Vertical lines
     for(int i =0;i<11;i+=1){
@@ -34,7 +32,7 @@ void MainWindow::drawBoard(){
         float p1y = game->ORIGINY;
         float p2x = p1x;
         float p2y = game->HEIGHT/2;
-        gs->addLine(QLineF(p1x,p1y,p2x,p2y) ,my_pen);
+        game->addLine(QLineF(p1x,p1y,p2x,p2y) ,my_pen);
     }
 }
 
