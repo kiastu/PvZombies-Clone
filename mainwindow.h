@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "peashooter.h"
 #include <QGraphicsScene>
+#include "board.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,6 +23,7 @@ private slots:
     void on_seed_1_clicked();
 
 private:
+    Board *game;
     Ui::MainWindow *ui;
     QGraphicsScene *gv;
 };

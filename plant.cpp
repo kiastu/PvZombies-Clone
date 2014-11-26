@@ -22,3 +22,9 @@ QRectF Plant::boundingRect() const
 {
     return QRectF(0,0,10,10);
 }
+
+void Plant::setPosition(float x, float y)
+{
+    this->x = x;
+    this->y = y;
+}
