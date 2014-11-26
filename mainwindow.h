@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "peashooter.h"
-#include <QGraphicsScene>
+#include "gamescene.h"
 #include "board.h"
 
 namespace Ui {
@@ -25,7 +25,7 @@ private slots:
 private:
     Board *game;
     Ui::MainWindow *ui;
-    QGraphicsScene *gv;
+    GameScene *gs;
 };
 
 #endif // MAINWINDOW_H
