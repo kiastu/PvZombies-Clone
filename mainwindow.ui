@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>981</width>
-    <height>711</height>
+    <width>1035</width>
+    <height>793</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QGraphicsView" name="gameView">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>100</y>
+      <x>210</x>
+      <y>180</y>
       <width>800</width>
       <height>550</height>
      </rect>
@@ -29,74 +29,6 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>10</y>
-      <width>644</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="seed_1">
-       <property name="text">
-        <string>Peashooter</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="seed_2">
-       <property name="text">
-        <string>Twinshooter</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="seed_3">
-       <property name="text">
-        <string>Tripleshooter</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="seed_4">
-       <property name="text">
-        <string>Nut</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="seed_5">
-       <property name="text">
-        <string>Cherry</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="seed_6">
-       <property name="text">
-        <string>Sunflower</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="seed_7">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="seed_8">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
@@ -130,13 +62,145 @@
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>208</x>
+      <y>40</y>
+      <width>801</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="seed_1">
+         <property name="text">
+          <string>Peashooter</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="seed_2">
+         <property name="text">
+          <string>Sun Flower</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="seed_3">
+         <property name="text">
+          <string>Cherry Bomb</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="seed_4">
+         <property name="text">
+          <string>Wall Nut</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="seed_5">
+         <property name="text">
+          <string>Potato Mine</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="seed_6">
+         <property name="text">
+          <string>Snow Pea</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="seed_7">
+         <property name="text">
+          <string>Chomper</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="seed_8">
+         <property name="text">
+          <string>Repeater</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="seed_1_label">
+         <property name="text">
+          <string>Peashooter</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="seed_2_label">
+         <property name="text">
+          <string>Sflower</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="seed_3_label">
+         <property name="text">
+          <string>Cherry </string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="seed_4_label">
+         <property name="text">
+          <string>Nut</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="seed_5_label">
+         <property name="text">
+          <string>Potato</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="seed_6_label">
+         <property name="text">
+          <string>Snow</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="seed_7_label">
+         <property name="text">
+          <string>Chomp</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignHCenter">
+        <widget class="QLabel" name="seed_8_label">
+         <property name="text">
+          <string>Repeater</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>981</width>
+     <width>1035</width>
      <height>21</height>
     </rect>
    </property>

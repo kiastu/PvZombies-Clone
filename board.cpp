@@ -28,11 +28,11 @@ void Board::setPlant(int row, int column, Plant *newPlant){
     isOccupied[row][column] = true; //there's a plant now!
     plants[row][column] = newPlant;
 
-    //Let's calculate where this plant should be!
+    //Let's calculate where this plant should b
     int grid_width = WIDTH / 10;
     int grid_height = HEIGHT /5;
-    int grid_x = ORIGINX + grid_width*column + grid_width/2;
-    int grid_y = ORIGINY + grid_height*row + grid_height/2;
+    int grid_x = ORIGINX + grid_width*column + grid_width/2-20;
+    int grid_y = ORIGINY + grid_height*row + grid_height/2-25;
    // newPlant->setPosition(ORIGINX,ORIGINY);
     newPlant->setPosition(grid_x,grid_y);
 
