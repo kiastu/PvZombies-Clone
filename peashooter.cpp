@@ -18,7 +18,6 @@ void PeaShooter::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
 
 QRectF PeaShooter::boundingRect()const
 {
-    std::cout<<"x:"<<x<<"y:"<<y<<"\n";
     return QRectF(0,0,20,20);
 }
 

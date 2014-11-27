@@ -39,7 +39,30 @@ void MainWindow::drawBoard(){
 void MainWindow::on_seed_1_clicked()
 {
     PeaShooter* ps = new PeaShooter();
-    this->game->setPlant(0,1,ps);
+    this->game->selectPlant(ps);
+}
 
+void MainWindow::on_seed_2_clicked()
+{
+
+}
+void MainWindow::on_seed_3_clicked(){
+
+}
+
+void MainWindow::on_seed_4_clicked(){
+
+}
+void MainWindow::on_seed_5_clicked(){
+
+}
+void MainWindow::on_seed_6_clicked(){
+
+}
+void MainWindow::on_seed_7_clicked(){
+
+}
+void MainWindow::on_seed_8_clicked()
+{
 
 }
