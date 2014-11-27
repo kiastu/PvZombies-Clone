@@ -2,7 +2,16 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+
 #include "peashooter.h"
+#include "sunflower.h"
+#include "cherrybomb.h"
+#include "wallnut.h"
+#include "potatomine.h"
+#include "snowpea.h"
+#include "chomper.h"
+#include "repeater.h"
+
 #include "board.h"
 
 namespace Ui {

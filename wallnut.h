@@ -1,16 +1,14 @@
-#ifndef SUNFLOWER_H
-#define SUNFLOWER_H
-
+#ifndef WALLNUT_H
+#define WALLNUT_H
 #include "plant.h"
 #include <QPainter>
-
-class SunFlower : public Plant
+class WallNut : public Plant
 {
 public:
-    SunFlower();
+    WallNut();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
     QRectF boundingRect()const;
     void shoot();
 };
 
-#endif // SUNFLOWER_H
+#endif // WALLNUT_H

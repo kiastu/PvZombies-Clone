@@ -1,16 +1,16 @@
-#ifndef SUNFLOWER_H
-#define SUNFLOWER_H
+#ifndef REPEATER_H
+#define REPEATER_H
 
 #include "plant.h"
 #include <QPainter>
 
-class SunFlower : public Plant
+class Repeater : public Plant
 {
 public:
-    SunFlower();
+    Repeater();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
     QRectF boundingRect()const;
     void shoot();
 };
 
-#endif // SUNFLOWER_H
+#endif // REPEATER_H

@@ -78,25 +78,33 @@ void MainWindow::on_seed_1_clicked()
 
 void MainWindow::on_seed_2_clicked()
 {
-
+    SunFlower* sf = new SunFlower();
+    this->game->selectPlant(sf);
 }
 void MainWindow::on_seed_3_clicked(){
-
+    CherryBomb* cb = new CherryBomb();
+    this->game->selectPlant(cb);
 }
 
 void MainWindow::on_seed_4_clicked(){
-
+    WallNut* wn = new WallNut();
+    this->game->selectPlant(wn);
 }
 void MainWindow::on_seed_5_clicked(){
 
+    PotatoMine* pm = new PotatoMine();
+    this->game->selectPlant(pm);
 }
 void MainWindow::on_seed_6_clicked(){
-
+    SnowPea* sp = new SnowPea();
+    this->game->selectPlant(sp);
 }
 void MainWindow::on_seed_7_clicked(){
-
+    Chomper* c = new Chomper();
+    this->game->selectPlant(c);
 }
 void MainWindow::on_seed_8_clicked()
 {
-
+    Repeater* r = new Repeater();
+    this->game->selectPlant(r);
 }

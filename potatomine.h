@@ -1,16 +1,15 @@
-#ifndef SUNFLOWER_H
-#define SUNFLOWER_H
+#ifndef POTATOMINE_H
+#define POTATOMINE_H
 
-#include "plant.h"
 #include <QPainter>
-
-class SunFlower : public Plant
+#include "plant.h"
+class PotatoMine : public Plant
 {
 public:
-    SunFlower();
+    PotatoMine();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
     QRectF boundingRect()const;
     void shoot();
 };
 
-#endif // SUNFLOWER_H
+#endif // POTATOMINE_H

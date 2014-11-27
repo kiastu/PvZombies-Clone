@@ -1,16 +1,15 @@
-#ifndef SUNFLOWER_H
-#define SUNFLOWER_H
-
+#ifndef SNOWPEA_H
+#define SNOWPEA_H
 #include "plant.h"
 #include <QPainter>
 
-class SunFlower : public Plant
+class SnowPea : public Plant
 {
 public:
-    SunFlower();
+    SnowPea();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
     QRectF boundingRect()const;
     void shoot();
 };
 
-#endif // SUNFLOWER_H
+#endif // SNOWPEA_H
