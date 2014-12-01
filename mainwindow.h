@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 
 #include "peashooter.h"
 #include "sunflower.h"
@@ -11,7 +12,6 @@
 #include "snowpea.h"
 #include "chomper.h"
 #include "repeater.h"
-
 #include "board.h"
 
 namespace Ui {
@@ -42,6 +42,7 @@ private slots:
 private:
     Board *game;//instance of QGraphicsView
     Ui::MainWindow *ui;
+    QTimer* timer;
 };
 
 #endif // MAINWINDOW_H

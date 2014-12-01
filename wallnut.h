@@ -7,7 +7,6 @@ class WallNut : public Plant
 public:
     WallNut();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
-    QRectF boundingRect()const;
     void shoot();
 };
 

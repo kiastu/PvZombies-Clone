@@ -9,7 +9,7 @@ class Chomper : public Plant
 public:
     Chomper();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
-    QRectF boundingRect()const;
+public slots:
     void shoot();
 };
 

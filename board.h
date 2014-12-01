@@ -6,16 +6,28 @@
 #include <iostream>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include <QFile>
+#include "zombie.h"
+#include "projectile.h"
+#include <QObject>
+
 
 class Board :public QGraphicsScene{
+
+Q_OBJECT
+
 public:
     Board(const QRectF & sceneRect, QObject * parent = 0,int rows=5);
     void setRows(int rows);
     Plant& getPlant(int row, int column);
     void setPlant(int row, int column, Plant *newPlant);
     void selectPlant(Plant *newPlant);
-
+    void loadFile(QFile file);
+    void unleashHorde();
+    void releaseZombie(int row,int type);
     ~Board();
+    //Mouse Events
+    virtual void mousePressEvent ( QGraphicsSceneMouseEvent * mouseEvent );
     enum{
         WIDTH = 800,
         HEIGHT = 500,
@@ -24,18 +36,24 @@ public:
         COLUMN = WIDTH/10,
         ROW = HEIGHT/5
     };
-    //Mouse Events
-    virtual void mousePressEvent ( QGraphicsSceneMouseEvent * mouseEvent );
-    //virtual void mouseMoveEvent ( QGraphicsSceneMouseEvent * mouseEvent );
-    //virtual void mouseReleaseEvent ( QGraphicsSceneMouseEvent * mouseEvent );
+    static int getWidth(){return WIDTH;}
+    static int getHeight(){return HEIGHT;}
+    static int getColumn(){return COLUMN;}
+    static int getRow(){return ROW;}
+    static int getOriginX(){return ORIGINX;}
+    static int getOriginY(){return ORIGINY;}
 public slots:
-    void on_seed_1_clicked();
+    void fireProjectile(Projectile* bullet);
+
+
 private:
     int clickIndex(QPointF click);
     int rows;//size of the board
     Plant* plants[5][10];
+    std::vector<Projectile*> projectiles;
     bool isOccupied[5][10];
     Plant* selectedPlant;
+    std::vector<Zombie*> zombies;
 };
 
 #endif // BOARD_H

@@ -9,8 +9,8 @@ class SunFlower : public Plant
 public:
     SunFlower();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
-    QRectF boundingRect()const;
-    void shoot();
+public slots:
+    void spawnSun();
 };
 
 #endif // SUNFLOWER_H

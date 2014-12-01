@@ -1,23 +1,23 @@
 #include "peashooter.h"
 #include <iostream>
+#include "Board.h"
 PeaShooter::PeaShooter()
 {
-
+    this->attackSpeed = 10;
+    timer = new QTimer();
+    QObject::connect(timer,SIGNAL(timeout()),this,SLOT(shoot()));
+    timer->setInterval(500*attackSpeed);
+    timer->start();
 }
 
 void PeaShooter::shoot(){
-
+    Projectile* pea = new Projectile(this->x,this->y,"pea");
+    emit shootProjectile(pea);
 }
 
 void PeaShooter::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*){
-    QPen pen(Qt::green,2);
-    QImage plant("images/peashooter.png");
-    painter->drawPixmap(0,0,QPixmap::fromImage(plant).scaled(50,50));
+    QImage plant(":images/peashooter.png");
     setPos(x,y);
-}
-
-QRectF PeaShooter::boundingRect()const
-{
-    return QRectF(0,0,50,75);
+    painter->drawPixmap(0,0,QPixmap::fromImage(plant).scaled(60,60));
 }
 

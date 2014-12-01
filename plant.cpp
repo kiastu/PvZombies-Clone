@@ -18,13 +18,24 @@ void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 
 }
 
-QRectF Plant::boundingRect() const
-{
-    return QRectF(0,0,10,10);
-}
-
 void Plant::setPosition(float x, float y)
 {
     this->x = x;
     this->y = y;
 }
+float Plant::getAttackSpeed() const
+{
+    return attackSpeed;
+}
+
+void Plant::setAttackSpeed(float value)
+{
+    attackSpeed = value;
+}
+QRectF Plant::boundingRect()const
+{
+    return QRectF(0,0,60,60);
+}
+
+
+

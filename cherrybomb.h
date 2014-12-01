@@ -7,9 +7,9 @@ class CherryBomb : public Plant
 {
 public:
     CherryBomb();
-    void shoot();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
-    QRectF boundingRect()const;
+public slots:
+    void shoot();
 
 };
 

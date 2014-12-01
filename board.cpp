@@ -1,5 +1,4 @@
 #include "board.h"
-#include <QDebug>
 
 Board::Board(const QRectF & sceneRect, QObject * parent,int rows):QGraphicsScene(sceneRect,parent){
     this->rows = rows;
@@ -28,14 +27,13 @@ void Board::setPlant(int row, int column, Plant *newPlant){
     isOccupied[row][column] = true; //there's a plant now!
     plants[row][column] = newPlant;
 
-    //Let's calculate where this plant should b
+    //Let's calculate where this plant should be
     int grid_width = WIDTH / 10;
     int grid_height = HEIGHT /5;
-    int grid_x = ORIGINX + grid_width*column + grid_width/2-20;
+    int grid_x = ORIGINX + grid_width*column + grid_width/2-30;
     int grid_y = ORIGINY + grid_height*row + grid_height/2-25;
-   // newPlant->setPosition(ORIGINX,ORIGINY);
     newPlant->setPosition(grid_x,grid_y);
-
+    QObject::connect(newPlant,SIGNAL(shootProjectile(Projectile*)),this,SLOT(fireProjectile(Projectile*)));
     this->addItem(newPlant);
 
 
@@ -47,8 +45,41 @@ void Board::selectPlant(Plant *newPlant){
     selectedPlant = newPlant;
 
 }
-Board::~Board(){
 
+void Board::loadFile(QFile file)
+{
+
+}
+
+void Board::unleashHorde()
+{
+    //this handles the logic for when to send out zombies.
+}
+
+void Board::releaseZombie(int row, int type)
+{
+    //new zombie, use the row to calculate proper y displacement.
+    Zombie* newZombie = new Zombie(row,type);
+    this->addItem(newZombie);
+}
+
+/*void Board::advance(int phase)
+{
+    std::cout<<"Hey I'm advancing!";
+    releaseZombie(0,1);
+}*/
+Board::~Board(){
+    //cleaning up all the pointers and shiz
+    for(int i = 0;i<5;i+=1){
+        for(int j=0;j<10;j+=1){
+            if(isOccupied[i][j])
+                delete plants[i][j];
+        }
+    }
+    delete selectedPlant;
+    for(int i=0;i<zombies.size();i+=1){
+        delete zombies.at(i);
+    }
 }
 
 void Board::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
@@ -72,10 +103,17 @@ void Board::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         else{
             //a plant is selected. Let's plant it on to the board!
             setPlant(row,column,selectedPlant);
+            selectedPlant=NULL;
             // the planting is done, let's deselect the plant.
         }
 
     }
+}
+
+void Board::fireProjectile(Projectile* bullet)
+{
+    projectiles.push_back(bullet);
+    this->addItem(bullet);
 }
 
 int Board::clickIndex(QPointF click){

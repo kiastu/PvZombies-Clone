@@ -1,18 +1,29 @@
 #ifndef PLANT_H
 #define PLANT_H
 
-#include <QGraphicsItem>
+#include <QGraphicsObject>
+#include <QPainter>
+#include "Projectile.h"
+#include <QTimer>
 
-class Plant:public QGraphicsItem{
+class Plant: public QObject, public QGraphicsItem{
+
+    Q_OBJECT
+
 public:
     Plant();
-    virtual void shoot();
     void die();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
-    QRectF boundingRect()const;
     void setPosition(float row, float column);
-
+    float getAttackSpeed() const;
+    void setAttackSpeed(float value);
+    QRectF boundingRect()const;
+signals:
+    void shootProjectile(Projectile* bullet);
+public slots:
+    virtual void shoot();
 protected:
+    QTimer* timer;
     int health,damage;
     float x,y,attackSpeed;
 };

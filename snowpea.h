@@ -2,13 +2,15 @@
 #define SNOWPEA_H
 #include "plant.h"
 #include <QPainter>
+#include "projectile.h"
 
 class SnowPea : public Plant
 {
+    Q_OBJECT
 public:
     SnowPea();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
-    QRectF boundingRect()const;
+public slots:
     void shoot();
 };
 

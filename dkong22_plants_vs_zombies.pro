@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     snowpea.cpp \
     chomper.cpp \
     repeater.cpp \
-    zombie.cpp
+    zombie.cpp \
+    projectile.cpp
 
 HEADERS  += mainwindow.h \
     plant.h \
@@ -37,7 +38,8 @@ HEADERS  += mainwindow.h \
     snowpea.h \
     chomper.h \
     repeater.h \
-    zombie.h
+    zombie.h \
+    projectile.h
 
 FORMS    += mainwindow.ui
 

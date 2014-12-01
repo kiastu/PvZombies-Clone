@@ -3,19 +3,21 @@
 
 #include <QGraphicsItem>
 #include <QPainter>
-#include "Board.h"
 
-class Zombie : public QGraphicsItem
-{
+class Zombie : public QObject, public QGraphicsItem{
+    Q_OBJECT
 public:
-    Zombie(int life = 10,int attack = 1);
+    Zombie (int row, int type);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
     QRectF boundingRect()const;
-    void attack();
+    int attack();
+    void die();
 protected:
     void advance(int phase);
-private :
-    float x,y,speed,currentLife,maxLife;
+private:
+    float x,y;
+    float speed,life,attackSpeed;
+    int row,type;
 };
 
 #endif // ZOMBIE_H

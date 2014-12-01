@@ -8,7 +8,7 @@ class PotatoMine : public Plant
 public:
     PotatoMine();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
-    QRectF boundingRect()const;
+public slots:
     void shoot();
 };
 

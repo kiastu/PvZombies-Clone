@@ -9,7 +9,7 @@ class Repeater : public Plant
 public:
     Repeater();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
-    QRectF boundingRect()const;
+public slots:
     void shoot();
 };
 

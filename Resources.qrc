@@ -3,11 +3,13 @@
         <file>images/cherrybomb.png</file>
         <file>images/chomper.png</file>
         <file>images/peashooter.png</file>
-        <file>images/Potatomine.png</file>
+        <file>images/potatomine.png</file>
         <file>images/repeater.png</file>
         <file>images/snowpea.png</file>
-        <file>images/SunFlower.png</file>
-        <file>images/Wallnut.png</file>
+        <file>images/sunflower.png</file>
+        <file>images/wallnut.png</file>
         <file>images/zombie.png</file>
+        <file>images/pea.png</file>
+        <file>images/frozenpea.png</file>
     </qresource>
 </RCC>

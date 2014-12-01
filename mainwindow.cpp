@@ -10,43 +10,52 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gameView->setScene(game);
     drawBoard();
     QImage plant1,plant2,plant3,plant4,plant5,plant6,plant7,plant8;
+    std::cout<<"Shooting...";
 
-    plant1.load("images/peashooter.png");
+    plant1.load(":/images/peashooter.png");
     QLabel* label1 = ui->seed_1_label;
     label1->setPixmap(QPixmap::fromImage(plant1).scaled(50,50));
 
-    plant2.load("images/sunflower.png");
+    plant2.load(":/images/sunflower.png");
     QLabel* label2 = ui->seed_2_label;
     label2->setPixmap(QPixmap::fromImage(plant2).scaled(50,50));
 
-    plant3.load("images/cherrybomb.png");
+    plant3.load(":/images/cherrybomb.png");
     QLabel* label3 = ui->seed_3_label;
     label3->setPixmap(QPixmap::fromImage(plant3).scaled(50,50));
 
-    plant4.load("images/wallnut.png");
+    plant4.load(":/images/wallnut.png");
     QLabel* label4 = ui->seed_4_label;
     label4->setPixmap(QPixmap::fromImage(plant4).scaled(50,50));
 
-    plant5.load("images/potatomine.png");
+    plant5.load(":/images/potatomine.png");
     QLabel* label5 = ui->seed_5_label;
     label5->setPixmap(QPixmap::fromImage(plant5).scaled(50,50));
 
-    plant6.load("images/snowpea.png");
+    plant6.load(":/images/snowpea.png");
     QLabel* label6 = ui->seed_6_label;
     label6->setPixmap(QPixmap::fromImage(plant6).scaled(50,50));
 
-    plant7.load("images/chomper.png");
+    plant7.load(":/images/chomper.png");
     QLabel* label7 = ui->seed_7_label;
     label7->setPixmap(QPixmap::fromImage(plant7).scaled(50,50));
 
-    plant8.load("images/repeater.png");
+    plant8.load(":/images/repeater.png");
     QLabel* label8 = ui->seed_8_label;
     label8->setPixmap(QPixmap::fromImage(plant8).scaled(50,50));
+
+    this->game->releaseZombie(0,1);
+    timer = new QTimer();
+    connect(timer, SIGNAL(timeout()), game, SLOT(advance()));
+    timer->setInterval(500);
+    timer->start();
+
 
 }
 
 MainWindow::~MainWindow()
 {
+
     delete ui;
 }
 
