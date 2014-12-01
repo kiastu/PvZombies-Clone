@@ -116,6 +116,31 @@ void Board::fireProjectile(Projectile* bullet)
     this->addItem(bullet);
 }
 
+void Board::eatPlant(Zombie *attacker)
+{
+    std::cout<<"Nom nom nom.";
+}
+
+void Board::killMeNow(Plant *plant)
+{
+    //find where this plant is.
+    for(int i=0;i<5;i+=1)
+    {
+        for(int j=1;j<10;j+=1){
+            if(plants[i][j] == plant){
+                delete plant;
+                plants[i][j] = NULL;
+                isOccupied[i][j]=false;
+            }
+        }
+    }
+}
+
+void Board::killMeNow(Zombie *zombie)
+{
+
+}
+
 int Board::clickIndex(QPointF click){
     //TODO: Handle clicking of sun.
     //oh lord this is going to be fun....

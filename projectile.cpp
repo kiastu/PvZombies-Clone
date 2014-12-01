@@ -3,15 +3,14 @@
 
 Projectile::Projectile(int xorigin, int yorigin,QString type):
     x(xorigin+50),y(yorigin+5),type(type),speed(7){
-
 }
 void Projectile::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*){
     QString path = ":images/"+type+".png";
     QImage* bullet= new QImage (path);
     setPos(this->x,this->y);
-    std::cout<<"X:"<<x<<"Y:"<<y<<"\n";
-
-    painter->drawPixmap(0,0,QPixmap::fromImage(*bullet).scaled(15,15));
+    setPixmap(QPixmap::fromImage(*bullet).scaled(15,15));
+    setTransformationMode(Qt::SmoothTransformation);
+    painter->drawPixmap(0,0,this->pixmap());
 }
 void Projectile::advance(int phase){
     if(!phase) return;
@@ -23,9 +22,15 @@ void Projectile::advance(int phase){
     setPos(this->x,this->y);
 }
 
-QRectF Projectile::boundingRect()const
+//QRectF Projectile::boundingRect()const
+//{
+//    return QRectF(0,0,15,15);
+//}
+
+void Projectile::hit()
 {
-    return QRectF(0,0,15,15);
+    this->scene()->removeItem(this);
+    this->~Projectile();
 }
 float Projectile::getDamage() const
 {

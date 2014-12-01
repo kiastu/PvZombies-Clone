@@ -1,4 +1,6 @@
 #include "plant.h"
+#include <QGraphicsScene>
+
 
 Plant::Plant()
 {
@@ -10,7 +12,15 @@ void Plant::shoot(){
 }
 
 void Plant::die(){
+    this->scene()->removeItem(this);
+    this->~Plant();
+}
 
+void Plant::beEaten()
+{
+    this->health -=1;
+    if(health<=0)
+       this->die();
 }
 
 void Plant::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -35,6 +45,11 @@ void Plant::setAttackSpeed(float value)
 QRectF Plant::boundingRect()const
 {
     return QRectF(0,0,60,60);
+}
+
+Plant::~Plant()
+{
+
 }
 
 

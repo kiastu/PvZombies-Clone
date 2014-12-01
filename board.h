@@ -44,8 +44,9 @@ public:
     static int getOriginY(){return ORIGINY;}
 public slots:
     void fireProjectile(Projectile* bullet);
-
-
+    void eatPlant(Zombie* attacker);
+    void killMeNow(Plant* plant);
+    void killMeNow(Zombie* zombie);
 private:
     int clickIndex(QPointF click);
     int rows;//size of the board

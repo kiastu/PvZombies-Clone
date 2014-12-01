@@ -13,13 +13,16 @@ class Plant: public QObject, public QGraphicsItem{
 public:
     Plant();
     void die();
+    void beEaten();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
     void setPosition(float row, float column);
     float getAttackSpeed() const;
     void setAttackSpeed(float value);
     QRectF boundingRect()const;
+    ~Plant();
 signals:
     void shootProjectile(Projectile* bullet);
+    void killMeNow(Plant* plant);
 public slots:
     virtual void shoot();
 protected:

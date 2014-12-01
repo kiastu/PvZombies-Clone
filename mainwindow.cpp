@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->game->releaseZombie(0,1);
     timer = new QTimer();
     connect(timer, SIGNAL(timeout()), game, SLOT(advance()));
-    timer->setInterval(500);
+    timer->setInterval(1000);
     timer->start();
 
 
