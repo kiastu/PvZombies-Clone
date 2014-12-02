@@ -1,4 +1,6 @@
 #include "potatomine.h"
+#include "Zombie.h"
+#include <QGraphicsScene>
 
 PotatoMine::PotatoMine()
 {
@@ -9,8 +11,21 @@ void PotatoMine::shoot(){
 }
 
 void PotatoMine::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*){
-    QPen pen(Qt::green,2);
-    QImage plant("images/PotatoMine.png");
+    //if we collide with a zombie...
+    QList<QGraphicsItem*> collidingItems = scene()->collidingItems(this);
+    bool collision = !collidingItems.isEmpty();
+    if(collision){
+        //check if zombie
+        for(int i =0;i<collidingItems.size();i++){
+            Zombie* testZombie = dynamic_cast<Zombie*>(collidingItems.at(i));
+            if(testZombie!=NULL){//is a zombie
+                testZombie->getHit(9999);
+                emit killMeNow(this);
+            }
+
+        }
+    }
+    QImage plant(":images/potatomine.png");
     painter->drawPixmap(0,0,QPixmap::fromImage(plant).scaled(60,60));
     setPos(x,y);
 }

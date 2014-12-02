@@ -50,6 +50,7 @@ public slots:
     void eatPlant(Zombie* attacker);
     void killMeNow(Plant* plant);
     void killMeNow(Zombie* zombie);
+    void dropSun();
 
 private:
     int clickIndex(QPointF click);

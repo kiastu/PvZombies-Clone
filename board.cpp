@@ -73,11 +73,6 @@ void Board::releaseZombie(int row, int type)
     this->addItem(newZombie);
 }
 
-/*void Board::advance(int phase)
-{
-    std::cout<<"Hey I'm advancing!";
-    releaseZombie(0,1);
-}*/
 Board::~Board(){
     //cleaning up all the pointers and shiz
     for(int i = 0;i<5;i+=1){
@@ -160,6 +155,11 @@ void Board::killMeNow(Zombie *zombie)
 {
     int index = this->zombies.indexOf(zombie);
     delete this->zombies.at(index);
+}
+
+void Board::dropSun()
+{
+
 }
 
 int Board::clickIndex(QPointF click){
