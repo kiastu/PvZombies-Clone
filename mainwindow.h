@@ -42,6 +42,9 @@ private slots:
     void on_seed_7_clicked();
     void on_seed_8_clicked();
 
+
+    void on_quit_button_clicked();
+
 private:
     Board *game;//instance of QGraphicsView
     Ui::MainWindow *ui;
@@ -52,6 +55,8 @@ private:
     QLCDNumber *lcds[8];
     enum{GAMESPEED = 500};
     int sunStore;
+    QList<QStringList> levels;
+    QList<QStringList> users;
 };
 
 #endif // MAINWINDOW_H

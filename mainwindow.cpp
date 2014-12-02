@@ -10,11 +10,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     //Read Level Data
-    QList<QStringList> levels;
+    //Read Level Data
     QFile file(":/pvz_levels.csv");
     if(!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(0, "Error, Levels Missing!", "Error, pvz_levels missing!!");
-this->close();    }
+        this->~MainWindow();
+    }
     QTextStream in(&file);
     while(!in.atEnd()) {
         QString line = in.readLine();
@@ -28,19 +29,48 @@ this->close();    }
     bool userDataIsValid = true;
     QFile file2(":/pvz_players.csv");
     if(!file2.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, "Warning! ", "pvz_users not found or corrupted");
+        QMessageBox::information(0, "Warning! ", "pvz_users not found!");
         userDataIsValid = false;
     }
+    if(userDataIsValid){
+        QTextStream inUser(&file2);
 
-    QTextStream inUser(&file2);
-
-    while(!inUser.atEnd()) {
-        QString line = inUser.readLine();
-        QStringList fields = line.split(",");
-        userData.append(fields);
+        while(!inUser.atEnd()) {
+            QString line = inUser.readLine();
+            QStringList fields = line.split(":");
+            userData.append(fields);
+        }
     }
 
+    if(!userDataIsValid){
+        //TODO: Delete User data
+        file2.resize(0);
+    }
+    else{
+        //populate combobox
+        for(int i=0;i<userData.size();i+=1){
+            QStringList user = userData.at(i);
+            //check for incorrect savefile.
+            bool *ok = new bool(true);
+            int timestamp = user.at(0).toInt(ok);
+            //check for non-alpha numeric characters for username
+            QRegExp exp(QString::fromUtf8("[-`~!@#$%^&*()_—+=|:;<>«»,.?/{}\'\"\\\[\\\]\\\\]"));
+            *ok = user.at(1).contains(exp);
+            if(user.at(1).length()>10){//too long
+                *ok =false;
+            }
+            //handle level number
+            int level = user.at(0).toInt(ok);
+            if(*ok == false){
+                //is not okay!
+                QMessageBox::information(0, "Warning! ", "pvz_users data corrupted!");
+                file2.resize(0);
+                userDataIsValid = false;
+                break;
+            }
 
+        }
+    }
     file2.close();
 
 
@@ -110,7 +140,6 @@ this->close();    }
     //handle planting countdown.
     connect(game,SIGNAL(plantPlanted()),this,SLOT(startPlantTimer()));
     connect(timer,SIGNAL(timeout()),this,SLOT(decrementAll()));
-    timer->start();
 
 }
 
@@ -215,4 +244,16 @@ void MainWindow::decrementAll(){
 void MainWindow::getSun()
 {
     sunStore+=25;
+}
+
+
+
+void MainWindow::on_quit_button_clicked()
+{
+    QCoreApplication::quit();
+}
+
+void MainWindow::on_start_button_clicked()
+{
+    timer->start();
 }
