@@ -1,11 +1,50 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
+#include <QTextStream>
+#include <QCoreApplication>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //Read Level Data
+    QList<QStringList> levels;
+    QFile file(":/pvz_levels.csv");
+    if(!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(0, "Error, Levels Missing!", "Error, pvz_levels missing!!");
+this->close();    }
+    QTextStream in(&file);
+    while(!in.atEnd()) {
+        QString line = in.readLine();
+        QStringList fields = line.split(":");
+        levels.append(fields);
+    }
+
+    file.close();
+    //Read User Data
+    QList<QStringList> userData;
+    bool userDataIsValid = true;
+    QFile file2(":/pvz_players.csv");
+    if(!file2.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(0, "Warning! ", "pvz_users not found or corrupted");
+        userDataIsValid = false;
+    }
+
+    QTextStream inUser(&file2);
+
+    while(!inUser.atEnd()) {
+        QString line = inUser.readLine();
+        QStringList fields = line.split(",");
+        userData.append(fields);
+    }
+
+
+    file2.close();
+
+
+
     this->game = new Board(QRectF(game->ORIGINX,game->ORIGINY,game->WIDTH,game->HEIGHT), this, 5);
     ui->gameView->setScene(game);
     drawBoard();
