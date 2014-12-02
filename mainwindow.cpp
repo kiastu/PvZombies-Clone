@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include <QCoreApplication>
+#include <exception>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,7 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QFile file(":/pvz_levels.csv");
     if(!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(0, "Error, Levels Missing!", "Error, pvz_levels missing!!");
-this->close();    }
+        this->~MainWindow();
+    }
     QTextStream in(&file);
     while(!in.atEnd()) {
         QString line = in.readLine();
@@ -28,22 +30,47 @@ this->close();    }
     bool userDataIsValid = true;
     QFile file2(":/pvz_players.csv");
     if(!file2.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, "Warning! ", "pvz_users not found or corrupted");
+        QMessageBox::information(0, "Warning! ", "pvz_users not found!");
         userDataIsValid = false;
     }
+    if(userDataIsValid){
+        QTextStream inUser(&file2);
 
-    QTextStream inUser(&file2);
-
-    while(!inUser.atEnd()) {
-        QString line = inUser.readLine();
-        QStringList fields = line.split(",");
-        userData.append(fields);
+        while(!inUser.atEnd()) {
+            QString line = inUser.readLine();
+            QStringList fields = line.split(":");
+            userData.append(fields);
+        }
     }
 
-
     file2.close();
+    if(!userDataIsValid){
+        //TODO: Delete User data
+        file2.resize(0);
+    }
+    else{
+        //populate combobox
+        for(int i=0;i<userData.size();i+=1){
+            QStringList user = userData.at(i);
+            //check for incorrect savefile.
+            bool *ok = true;
+            int timestamp = user.at(0).toInt(ok);
+            //check for non-alpha numeric characters
+            QRegExp exp(QString::fromUtf8("[-`~!@#$%^&*()_—+=|:;<>«»,.?/{}\'\"\\\[\\\]\\\\]"));
+            users.at(1).contains(exp);
+            if(users.at(1).length()>10){//too long
+                *ok =false;
+            }
+            if(*ok == false|){
+                //is not okay!
+                file2.resize(0);
+                QMessageBox::information(0, "Warning! ", "pvz_users data corrupted!");
+                userDataIsValid = false;
+                break;
+            }
 
-
+        }
+    }
 
     this->game = new Board(QRectF(game->ORIGINX,game->ORIGINY,game->WIDTH,game->HEIGHT), this, 5);
     ui->gameView->setScene(game);
@@ -58,6 +85,9 @@ this->close();    }
     lcds[6] = this->ui->cd_7;
     lcds[7] = this->ui->cd_8;
 
+    //set sun
+    sunStore = 400;
+    this->ui->sun_count->display(sunStore);
     //draw images
     QImage plant1,plant2,plant3,plant4,plant5,plant6,plant7,plant8;
 
@@ -98,9 +128,11 @@ this->close();    }
 
     //Planting cooldowns
     int staticCooldowns[8] = {7500,7500,50000,30000,30000,7500,7500,7500};
+    int staticCosts[8] = {100,50,150,50,25,175,150,200};
     for(int i=0;i<8;i+=1){
         cooldown[i]=staticCooldowns[i];
         isAvailable[i] = 0;
+        sunCost[i]=staticCosts[i];
     }
     timer = new QTimer();
     connect(timer, SIGNAL(timeout()), game, SLOT(advance()));
@@ -112,11 +144,20 @@ this->close();    }
     connect(timer,SIGNAL(timeout()),this,SLOT(decrementAll()));
     timer->start();
 
+
 }
 
 MainWindow::~MainWindow()
 {
 
+    for(int i=0;i<8;i+=1){
+        if(lcds[i]!=NULL)
+        delete lcds[i];
+    }
+    if(timer!=NULL)
+        delete timer;
+    if(game!=NULL)
+        delete game;
     delete ui;
 }
 
@@ -142,62 +183,43 @@ void MainWindow::drawBoard(){
 
 void MainWindow::on_seed_1_clicked()
 {
-    if(isAvailable[0]==0){
-        PeaShooter* ps = new PeaShooter();
-        this->game->selectPlant(ps);
-        this->selected = 0;
-    }
+    PeaShooter* ps = new PeaShooter();
+    this->buyPlant(0,ps);
 }
-
 void MainWindow::on_seed_2_clicked()
 {
-    if(isAvailable[1]==0){
-        SunFlower* sf = new SunFlower();
-        this->game->selectPlant(sf);
-        this->selected = 1;
-    }
+    SunFlower* sf = new SunFlower();
+    this->buyPlant(1,sf);
 }
 void MainWindow::on_seed_3_clicked(){
-    if(isAvailable[2]==0){
-        CherryBomb* cb = new CherryBomb();
-        this->game->selectPlant(cb);
-        this->selected = 2;
-    }
+    CherryBomb* cb = new CherryBomb();
+    this->buyPlant(2,cb);
 }
-
 void MainWindow::on_seed_4_clicked(){
-    if(isAvailable[3]==0){
-        WallNut* wn = new WallNut();
-        this->game->selectPlant(wn);
-        this->selected = 3;
-    }}
+    WallNut* wn = new WallNut();
+    this->buyPlant(3,wn);
+}
 void MainWindow::on_seed_5_clicked(){
-    if(isAvailable[4]==0){
         PotatoMine* pm = new PotatoMine();
-        this->game->selectPlant(pm);
-        this->selected = 4;
-    }}
+        this->buyPlant(0,pm);
+}
 void MainWindow::on_seed_6_clicked(){
-    if(isAvailable[5]==0){
         SnowPea* sp = new SnowPea();
-        this->game->selectPlant(sp);
-        this->selected = 5;
-    }}
+        this->buyPlant(5,sp);
+}
 void MainWindow::on_seed_7_clicked(){
-    if(isAvailable[6]==0){
         Chomper* c = new Chomper();
-        this->game->selectPlant(c);
-        this->selected = 6;
-    }}
-void MainWindow::on_seed_8_clicked()
-{if(isAvailable[7]==0){
+        this->buyPlant(6,c);
+}
+void MainWindow::on_seed_8_clicked(){
         Repeater* r = new Repeater();
-        this->game->selectPlant(r);
-        this->selected = 7;
-    }}
+        this->buyPlant(7,r);
+}
 void MainWindow::startPlantTimer(){
     //assign cooldown
     isAvailable[selected] = cooldown[selected];
+    //credit the sun.
+    this->sunStore-=this->sunCost[selected];
 }
 void MainWindow::decrementAll(){
     for(int i = 0;i < 8;i+=1){
@@ -209,10 +231,29 @@ void MainWindow::decrementAll(){
             this->lcds[i]->display(0);
         }
     }
-
 }
 
 void MainWindow::getSun()
 {
     sunStore+=25;
+    this->ui->sun_count->display(sunStore);
+}
+
+void MainWindow::on_button_quit_clicked()
+{
+    QApplication::quit();
+}
+
+void MainWindow::buyPlant(int plantId,Plant *plant)
+{
+    //Has enough sun, and is available. Let' select it.
+    if(sunStore>=sunCost[plantId]&&isAvailable[plantId]){
+        //we can buy it. Select the plant.
+        this->game->selectPlant(plant);
+        this->selected =plantId;
+    }
+    else{
+        //prevent leaks
+        delete plant;
+    }
 }

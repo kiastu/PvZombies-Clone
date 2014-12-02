@@ -5,13 +5,9 @@
 
 class Sun : public QGraphicsItem
 {
-    Q_OBJECT
+
 public:
-    explicit Sun(QObject *parent = 0);
-
-signals:
-
-public slots:
+    Sun();
 
 };
 

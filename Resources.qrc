@@ -12,5 +12,6 @@
         <file>images/pea.png</file>
         <file>images/frozenpea.png</file>
         <file>pvz_players.csv</file>
+        <file>pvz_levels.csv</file>
     </qresource>
 </RCC>

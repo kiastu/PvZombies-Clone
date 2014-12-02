@@ -42,16 +42,23 @@ private slots:
     void on_seed_7_clicked();
     void on_seed_8_clicked();
 
+    void on_button_quit_clicked();
+
+    void on_button_start_clicked();
+
 private:
     Board *game;//instance of QGraphicsView
     Ui::MainWindow *ui;
     QTimer* timer;
     int selected;//Current selected plant index
     int isAvailable[8];//holds current time remaining before planting.
-    int cooldown[8];
+    int cooldown[8];//staic cooldowns
+    int sunCost[8];//holds sun costs
     QLCDNumber *lcds[8];
     enum{GAMESPEED = 500};
     int sunStore;
-};
+    void buyPlant(int plantId,Plant* plant);
+    QList<QStringList> levels;
+    QList<QStringList> userData;
 
 #endif // MAINWINDOW_H
