@@ -8,7 +8,7 @@ Zombie::Zombie(int row, int type):isStopped(false),health(10){
     this->row = row;
     this->type = type;
     this->x = Board::WIDTH/2-10;
-    this->y = Board::ORIGINY+row*Board::COLUMN;
+    this->y = Board::ORIGINY+row*Board::ROW;
     this->speed = 10;
 }
 

@@ -1,13 +1,14 @@
 #include "projectile.h"
 #include "board.h"
 
+
 Projectile::Projectile(int xorigin, int yorigin,QString type):
     x(xorigin+50),y(yorigin+5),type(type),speed(7){
+    setPos(this->x,this->y);
 }
 void Projectile::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*){
     QString path = ":images/"+type+".png";
     QImage* bullet= new QImage (path);
-    setPos(this->x,this->y);
     setPixmap(QPixmap::fromImage(*bullet).scaled(15,15));
     setTransformationMode(Qt::SmoothTransformation);
     painter->drawPixmap(0,0,this->pixmap());

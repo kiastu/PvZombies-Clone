@@ -42,19 +42,22 @@ public:
     static int getRow(){return ROW;}
     static int getOriginX(){return ORIGINX;}
     static int getOriginY(){return ORIGINY;}
+signals:
+    void plantPlanted();
 public slots:
     void fireProjectile(Projectile* bullet);
     void eatPlant(Zombie* attacker);
     void killMeNow(Plant* plant);
     void killMeNow(Zombie* zombie);
+
 private:
     int clickIndex(QPointF click);
     int rows;//size of the board
     Plant* plants[5][10];
-    std::vector<Projectile*> projectiles;
+    QList<Projectile*> projectiles;
     bool isOccupied[5][10];
     Plant* selectedPlant;
-    std::vector<Zombie*> zombies;
+    QList<Zombie*> zombies;
 };
 
 #endif // BOARD_H

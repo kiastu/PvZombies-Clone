@@ -1,5 +1,6 @@
 #include "board.h"
 
+
 Board::Board(const QRectF & sceneRect, QObject * parent,int rows):QGraphicsScene(sceneRect,parent){
     this->rows = rows;
     for(int i = 0;i<rows;i++){
@@ -35,8 +36,7 @@ void Board::setPlant(int row, int column, Plant *newPlant){
     newPlant->setPosition(grid_x,grid_y);
     QObject::connect(newPlant,SIGNAL(shootProjectile(Projectile*)),this,SLOT(fireProjectile(Projectile*)));
     this->addItem(newPlant);
-
-
+    emit plantPlanted();
 }
 
 void Board::selectPlant(Plant *newPlant){
@@ -114,6 +114,16 @@ void Board::fireProjectile(Projectile* bullet)
 {
     projectiles.push_back(bullet);
     this->addItem(bullet);
+    //trying some new stuff with timeline to make the animation smoother.
+    /*QTimeLine* timer = new QTimeLine(2000);
+    timer->setFrameRange(0,100);
+    QGraphicsItemAnimation* animation = new QGraphicsItemAnimation();
+    animation->setItem(bullet);
+    animation->setTimeLine(timer);
+    animation->setPosAt(0.0, QPointF(10,0));
+    animation->setPosAt(0.5, QPointF(0,100));
+    animation->setPosAt(1.0, QPointF(10,0));
+    timer->start();*/
 }
 
 void Board::eatPlant(Zombie *attacker)
@@ -138,7 +148,8 @@ void Board::killMeNow(Plant *plant)
 
 void Board::killMeNow(Zombie *zombie)
 {
-
+    int index = this->zombies.indexOf(zombie);
+    delete this->zombies.at(index);
 }
 
 int Board::clickIndex(QPointF click){

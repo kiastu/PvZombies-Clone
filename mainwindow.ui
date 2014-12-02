@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1035</width>
-    <height>793</height>
+    <width>1084</width>
+    <height>837</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QGraphicsView" name="gameView">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>180</y>
+      <x>270</x>
+      <y>220</y>
       <width>800</width>
       <height>550</height>
      </rect>
@@ -65,7 +65,7 @@
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>208</x>
+      <x>270</x>
       <y>40</y>
       <width>801</width>
       <height>131</height>
@@ -162,10 +162,13 @@
          </property>
         </widget>
        </item>
-       <item alignment="Qt::AlignHCenter">
+       <item>
         <widget class="QLabel" name="seed_5_label">
          <property name="text">
           <string>Potato</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -192,6 +195,63 @@
        </item>
       </layout>
      </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLCDNumber" name="cd_1"/>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="cd_2"/>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="cd_3"/>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="cd_4"/>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="cd_5"/>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="cd_6"/>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="cd_7"/>
+       </item>
+       <item>
+        <widget class="QLCDNumber" name="cd_8"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>40</y>
+      <width>66</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="sun_count">
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Sun</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLCDNumber" name="lcdNumber"/>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -200,7 +260,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1035</width>
+     <width>1084</width>
      <height>21</height>
     </rect>
    </property>

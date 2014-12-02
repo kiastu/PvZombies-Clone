@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QLCDNumber>
+
 
 #include "peashooter.h"
 #include "sunflower.h"
@@ -26,9 +28,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     void drawBoard();
     ~MainWindow();
-
-
-
+public slots:
+    void startPlantTimer();
+    void decrementAll();
+    void getSun();
 private slots:
     void on_seed_1_clicked();
     void on_seed_2_clicked();
@@ -43,6 +46,12 @@ private:
     Board *game;//instance of QGraphicsView
     Ui::MainWindow *ui;
     QTimer* timer;
+    int selected;//Current selected plant index
+    int isAvailable[8];//holds current time remaining before planting.
+    int cooldown[8];
+    QLCDNumber *lcds[8];
+    enum{GAMESPEED = 500};
+    int sunStore;
 };
 
 #endif // MAINWINDOW_H

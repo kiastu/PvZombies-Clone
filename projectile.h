@@ -3,7 +3,9 @@
 
 #include <QGraphicsPixmapItem>
 #include <QPainter>
-#include <string>
+#include <QTimeLine>
+#include <QGraphicsItemAnimation>
+
 
 class Projectile : public QGraphicsPixmapItem
 {
@@ -28,6 +30,9 @@ private:
     float x,y;
     int damage,speed;
     QString type;
+    QTimeLine* timer;
+    QGraphicsItemAnimation* animation;
+
 };
 
 #endif // PROJECTILE_H
