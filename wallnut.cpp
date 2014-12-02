@@ -2,7 +2,7 @@
 
 WallNut::WallNut()
 {
-    this->health = 30;
+    this->health = 72;
 }
 
 void WallNut::shoot(){

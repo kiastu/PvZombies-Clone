@@ -14,5 +14,6 @@
         <file>pvz_players.csv</file>
         <file>pvz_levels.csv</file>
         <file>images/lawnmower.png</file>
+        <file>images/zombienewspaper.png</file>
     </qresource>
 </RCC>

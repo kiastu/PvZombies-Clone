@@ -23,6 +23,7 @@ private:
     float speed,health,attackSpeed;
     int row,type;
     bool isStopped;
+    int nomTimer;
 };
 
 #endif // ZOMBIE_H

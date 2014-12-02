@@ -2,10 +2,18 @@
 
 Repeater::Repeater()
 {
+    this->attackSpeed = 3;
+    timer = new QTimer();
+    QObject::connect(timer,SIGNAL(timeout()),this,SLOT(shoot()));
+    timer->setInterval(1000*attackSpeed);
+    timer->start();
 }
 
 void Repeater::shoot(){
-
+    Projectile* pea = new Projectile(this->x+20,this->y,"pea");
+    Projectile* pea2 = new Projectile(this->x,this->y,"pea");
+    emit shootProjectile(pea);
+    emit shootProjectile(pea2);
 }
 
 void Repeater::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*){

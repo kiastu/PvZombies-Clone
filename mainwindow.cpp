@@ -44,7 +44,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     file2.close();
     if(!userDataIsValid){
-        //TODO: Delete User data
         file2.resize(0);
     }
     else{
@@ -73,6 +72,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //populate the combo box
     for(int i=0;i<userData.length();i+=1){
         this->ui->user_select->addItem(userData.at(i).at(1));
+    }
+    if(userDataIsValid&&userData.length()>0){
+        this->ui->button_start->setEnabled(true);
+        this->ui->button_restart->setEnabled(true);
+        this->ui->button_quit->setEnabled(true);
     }
 
     this->game = new Board(QRectF(game->ORIGINX,game->ORIGINY,game->WIDTH,game->HEIGHT), this, 5);
@@ -126,8 +130,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QLabel* label8 = ui->seed_8_label;
     label8->setPixmap(QPixmap::fromImage(plant8).scaled(50,50));
 
-    //testing zombies
-    this->game->releaseZombie(1,1);
+    //zombies
+    QString aString = levels.at(0).at(1);
+    QStringList zombieList = aString.split(",");
+    this->game->loadFile(zombieList.size());
 
     //Planting cooldowns
     int staticCooldowns[8] = {7500,7500,50000,30000,30000,7500,7500,7500};
@@ -208,7 +214,7 @@ void MainWindow::on_seed_4_clicked(){
 }
 void MainWindow::on_seed_5_clicked(){
     PotatoMine* pm = new PotatoMine();
-    this->buyPlant(0,pm);
+    this->buyPlant(4,pm);
 }
 void MainWindow::on_seed_6_clicked(){
     SnowPea* sp = new SnowPea();
@@ -227,6 +233,7 @@ void MainWindow::startPlantTimer(){
     isAvailable[selected] = cooldown[selected];
     //credit the sun.
     this->sunStore-=this->sunCost[selected];
+    this->ui->sun_count->display(this->sunStore);
 }
 void MainWindow::decrementAll(){
     for(int i = 0;i < 8;i+=1){

@@ -20,6 +20,7 @@ void PotatoMine::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidg
             Zombie* testZombie = dynamic_cast<Zombie*>(collidingItems.at(i));
             if(testZombie!=NULL){//is a zombie
                 testZombie->getHit(9999);
+                painter->drawText(0,0,"Boom!");
                 emit killMeNow(this);
             }
 

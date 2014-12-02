@@ -3,7 +3,7 @@
 #include "Board.h"
 PeaShooter::PeaShooter()
 {
-    this->attackSpeed = 1.5;
+    this->attackSpeed = 3;
     timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()),this,SLOT(shoot()));
     timer->setInterval(1000*attackSpeed);

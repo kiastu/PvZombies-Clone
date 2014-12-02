@@ -2,7 +2,7 @@
 #include <QGraphicsScene>
 
 
-Plant::Plant()
+Plant::Plant():health(4)
 {
 
 }

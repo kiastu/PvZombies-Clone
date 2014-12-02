@@ -10,6 +10,7 @@ Zombie::Zombie(int row, int type):isStopped(false),health(10){
     this->x = Board::WIDTH/2-10;
     this->y = Board::ORIGINY+row*Board::ROW;
     this->speed = 10;
+    nomTimer = 5;
 }
 
 void Zombie::die(){
@@ -20,13 +21,15 @@ void Zombie::die(){
 
 void Zombie::nomnomnom(Plant *plant)
 {
+    nomTimer++;
+    if(nomTimer)
     plant->beEaten();
 }
 
 void Zombie::getHit(int damage)
 {
     this->health -= damage;
-    if(health <=0)
+    if(this->health <=0)
         this->die();
 }
 
@@ -46,7 +49,7 @@ void Zombie::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
             }
             else if(testProjectile != NULL){
                 //is a projectile
-                this->getHit(testProjectile->getDamage());
+                this->getHit(1);
                 testProjectile->hit();
             }else{
                 //do nothing
@@ -56,9 +59,18 @@ void Zombie::paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*)
     else{
         this->isStopped = false;
     }
-    QImage zombie(":/images/zombie.png");
-    setPos(x,y);
-    painter->drawPixmap(0,0,QPixmap::fromImage(zombie).scaled(75,100));
+    if(type ==1){
+        QImage zombie(":/images/zombienewspaper.png");
+        setPos(x,y);
+        painter->drawPixmap(0,0,QPixmap::fromImage(zombie).scaled(75,100));
+    }
+    else{
+        QImage zombie(":/images/zombie.png");
+        setPos(x,y);
+        painter->drawPixmap(0,0,QPixmap::fromImage(zombie).scaled(75,100));
+    }
+
+
 }
 
 

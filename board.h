@@ -23,7 +23,7 @@ public:
     Plant& getPlant(int row, int column);
     void setPlant(int row, int column, Plant *newPlant);
     void selectPlant(Plant *newPlant);
-    void loadFile(QFile file);
+    void loadFile(int size);
     void unleashHorde();
     void releaseZombie(int row,int type);
     ~Board();

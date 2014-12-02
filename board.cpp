@@ -1,5 +1,6 @@
 #include "board.h"
 #include "QGraphicsPixmapItem"
+#include "time.h"
 
 
 Board::Board(const QRectF & sceneRect, QObject * parent,int rows):QGraphicsScene(sceneRect,parent){
@@ -56,9 +57,13 @@ void Board::selectPlant(Plant *newPlant){
 
 }
 
-void Board::loadFile(QFile file)
+void Board::loadFile(int size)
 {
-
+    srand(time(NULL));
+    int horde_size = size;
+    for(int i =0;i<horde_size;i+=1){
+        this->releaseZombie(rand()%5,rand()%2+1);
+    }
 }
 
 void Board::unleashHorde()
@@ -143,6 +148,7 @@ void Board::killMeNow(Plant *plant)
     {
         for(int j=1;j<10;j+=1){
             if(plants[i][j] == plant){
+                this->removeItem(plant);
                 delete plant;
                 plants[i][j] = NULL;
                 isOccupied[i][j]=false;
