@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     //Read Level Data
-    QList<QStringList> levels;
+    //Read Level Data
     QFile file(":/pvz_levels.csv");
     if(!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(0, "Error, Levels Missing!", "Error, pvz_levels missing!!");
@@ -42,7 +42,6 @@ MainWindow::MainWindow(QWidget *parent) :
             userData.append(fields);
         }
     }
-
     file2.close();
     if(!userDataIsValid){
         //TODO: Delete User data
@@ -53,15 +52,15 @@ MainWindow::MainWindow(QWidget *parent) :
         for(int i=0;i<userData.size();i+=1){
             QStringList user = userData.at(i);
             //check for incorrect savefile.
-            bool *ok = true;
+            bool *ok = new bool(true);
             int timestamp = user.at(0).toInt(ok);
             //check for non-alpha numeric characters
             QRegExp exp(QString::fromUtf8("[-`~!@#$%^&*()_—+=|:;<>«»,.?/{}\'\"\\\[\\\]\\\\]"));
-            users.at(1).contains(exp);
-            if(users.at(1).length()>10){//too long
+            user.at(1).contains(exp);
+            if(user.at(1).length()>10){//too long
                 *ok =false;
             }
-            if(*ok == false|){
+            if(*ok == false){
                 //is not okay!
                 file2.resize(0);
                 QMessageBox::information(0, "Warning! ", "pvz_users data corrupted!");
@@ -70,6 +69,10 @@ MainWindow::MainWindow(QWidget *parent) :
             }
 
         }
+    }
+    //populate the combo box
+    for(int i=0;i<userData.length();i+=1){
+        this->ui->user_select->addItem(userData.at(i).at(1));
     }
 
     this->game = new Board(QRectF(game->ORIGINX,game->ORIGINY,game->WIDTH,game->HEIGHT), this, 5);
@@ -142,7 +145,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //handle planting countdown.
     connect(game,SIGNAL(plantPlanted()),this,SLOT(startPlantTimer()));
     connect(timer,SIGNAL(timeout()),this,SLOT(decrementAll()));
-    timer->start();
 
 
 }
@@ -239,15 +241,10 @@ void MainWindow::getSun()
     this->ui->sun_count->display(sunStore);
 }
 
-void MainWindow::on_button_quit_clicked()
-{
-    QApplication::quit();
-}
-
 void MainWindow::buyPlant(int plantId,Plant *plant)
 {
     //Has enough sun, and is available. Let' select it.
-    if(sunStore>=sunCost[plantId]&&isAvailable[plantId]){
+    if(sunStore>=sunCost[plantId]&&isAvailable[plantId]==0){
         //we can buy it. Select the plant.
         this->game->selectPlant(plant);
         this->selected =plantId;
@@ -255,5 +252,25 @@ void MainWindow::buyPlant(int plantId,Plant *plant)
     else{
         //prevent leaks
         delete plant;
+    }
+}
+
+void MainWindow::on_button_start_clicked()
+{
+    timer->start();
+}
+
+void MainWindow::on_button_quit_clicked()
+{
+    QCoreApplication::quit();
+}
+
+void MainWindow::on_button_new_clicked()
+{
+    if(this->ui->new_user->toPlainText()!=""){
+    this->ui->user_select->addItem(this->ui->new_user->toPlainText());
+    this->ui->button_start->setEnabled(true);
+    this->ui->button_quit->setEnabled(true);
+    this->ui->button_restart->setEnabled(true);
     }
 }

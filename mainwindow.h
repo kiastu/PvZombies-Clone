@@ -42,9 +42,12 @@ private slots:
     void on_seed_7_clicked();
     void on_seed_8_clicked();
 
-    void on_button_quit_clicked();
 
     void on_button_start_clicked();
+
+    void on_button_quit_clicked();
+
+    void on_button_new_clicked();
 
 private:
     Board *game;//instance of QGraphicsView
@@ -60,5 +63,7 @@ private:
     void buyPlant(int plantId,Plant* plant);
     QList<QStringList> levels;
     QList<QStringList> userData;
+
+};
 
 #endif // MAINWINDOW_H

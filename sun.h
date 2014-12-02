@@ -9,6 +9,7 @@ class Sun : public QGraphicsItem
 public:
     Sun();
 
+
 };
 
 #endif // SUN_H
