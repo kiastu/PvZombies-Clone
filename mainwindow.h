@@ -27,6 +27,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     void drawBoard();
+    void startLevel(int level);
     ~MainWindow();
 public slots:
     void startPlantTimer();
@@ -49,6 +50,8 @@ private slots:
 
     void on_button_new_clicked();
 
+    void on_button_restart_clicked();
+
 private:
     Board *game;//instance of QGraphicsView
     Ui::MainWindow *ui;
@@ -63,6 +66,7 @@ private:
     void buyPlant(int plantId,Plant* plant);
     QList<QStringList> levels;
     QList<QStringList> userData;
+    int level;
 
 };
 

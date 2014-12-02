@@ -154,7 +154,7 @@ MainWindow::~MainWindow()
 
     for(int i=0;i<8;i+=1){
         if(lcds[i]!=NULL)
-        delete lcds[i];
+            delete lcds[i];
     }
     if(timer!=NULL)
         delete timer;
@@ -183,6 +183,11 @@ void MainWindow::drawBoard(){
     }
 }
 
+void MainWindow::startLevel(int level)
+{
+
+}
+
 void MainWindow::on_seed_1_clicked()
 {
     PeaShooter* ps = new PeaShooter();
@@ -202,20 +207,20 @@ void MainWindow::on_seed_4_clicked(){
     this->buyPlant(3,wn);
 }
 void MainWindow::on_seed_5_clicked(){
-        PotatoMine* pm = new PotatoMine();
-        this->buyPlant(0,pm);
+    PotatoMine* pm = new PotatoMine();
+    this->buyPlant(0,pm);
 }
 void MainWindow::on_seed_6_clicked(){
-        SnowPea* sp = new SnowPea();
-        this->buyPlant(5,sp);
+    SnowPea* sp = new SnowPea();
+    this->buyPlant(5,sp);
 }
 void MainWindow::on_seed_7_clicked(){
-        Chomper* c = new Chomper();
-        this->buyPlant(6,c);
+    Chomper* c = new Chomper();
+    this->buyPlant(6,c);
 }
 void MainWindow::on_seed_8_clicked(){
-        Repeater* r = new Repeater();
-        this->buyPlant(7,r);
+    Repeater* r = new Repeater();
+    this->buyPlant(7,r);
 }
 void MainWindow::startPlantTimer(){
     //assign cooldown
@@ -258,6 +263,8 @@ void MainWindow::buyPlant(int plantId,Plant *plant)
 void MainWindow::on_button_start_clicked()
 {
     timer->start();
+    this->ui->button_new->setEnabled(false);
+    this->ui->button_start->setEnabled(false);
 }
 
 void MainWindow::on_button_quit_clicked()
@@ -268,9 +275,35 @@ void MainWindow::on_button_quit_clicked()
 void MainWindow::on_button_new_clicked()
 {
     if(this->ui->new_user->toPlainText()!=""){
-    this->ui->user_select->addItem(this->ui->new_user->toPlainText());
-    this->ui->button_start->setEnabled(true);
-    this->ui->button_quit->setEnabled(true);
-    this->ui->button_restart->setEnabled(true);
+        this->ui->user_select->addItem(this->ui->new_user->toPlainText());
+        this->ui->button_start->setEnabled(true);
+        this->ui->button_quit->setEnabled(true);
+        this->ui->button_restart->setEnabled(true);
     }
+}
+
+void MainWindow::on_button_restart_clicked()
+{
+    this->timer->stop();
+    QMessageBox box;
+    box.setText("Restart?");
+    box.setInformativeText("Are you sure you want to restart?");
+    box.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+    int ret = box.exec();
+    switch(ret){
+    case QMessageBox::Ok:{
+        //restart the game.
+        delete game;
+        startLevel(this->level);
+        timer->start();
+        break;
+    }
+    case QMessageBox::Cancel:{
+        box.close();
+        timer->start();
+        break;
+    }
+
+    }
+
 }

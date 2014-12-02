@@ -1,4 +1,5 @@
 #include "board.h"
+#include "QGraphicsPixmapItem"
 
 
 Board::Board(const QRectF & sceneRect, QObject * parent,int rows):QGraphicsScene(sceneRect,parent){
@@ -13,6 +14,16 @@ Board::Board(const QRectF & sceneRect, QObject * parent,int rows):QGraphicsScene
         }
     }
     selectedPlant = NULL;
+    //initialize lawnmowers
+    //Let's calculate where lawnmower should be
+    for(int i =0;i<5;i+=1){
+        LawnMower* lm = new LawnMower();
+        int grid_x = ORIGINX + COLUMN/2-30;
+        int grid_y = ORIGINY + ROW*i + ROW/2-25;
+        lm->setPos(grid_x,grid_y);
+        this->lawnmowers.append(lm);
+        this->addItem(lm);
+    }
 
 }
 
@@ -29,10 +40,9 @@ void Board::setPlant(int row, int column, Plant *newPlant){
     plants[row][column] = newPlant;
 
     //Let's calculate where this plant should be
-    int grid_width = WIDTH / 10;
-    int grid_height = HEIGHT /5;
-    int grid_x = ORIGINX + grid_width*column + grid_width/2-30;
-    int grid_y = ORIGINY + grid_height*row + grid_height/2-25;
+
+    int grid_x = ORIGINX + COLUMN*column + COLUMN/2-30;
+    int grid_y = ORIGINY + ROW*row + ROW/2-25;
     newPlant->setPosition(grid_x,grid_y);
     QObject::connect(newPlant,SIGNAL(shootProjectile(Projectile*)),this,SLOT(fireProjectile(Projectile*)));
     this->addItem(newPlant);

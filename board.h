@@ -10,6 +10,7 @@
 #include "zombie.h"
 #include "projectile.h"
 #include <QObject>
+#include "lawnmower.h"
 
 
 class Board :public QGraphicsScene{
@@ -58,6 +59,7 @@ private:
     bool isOccupied[5][10];
     Plant* selectedPlant;
     QList<Zombie*> zombies;
+    QList<LawnMower*> lawnmowers;
 };
 
 #endif // BOARD_H
